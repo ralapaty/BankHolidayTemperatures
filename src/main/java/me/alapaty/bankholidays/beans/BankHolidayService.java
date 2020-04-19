@@ -78,7 +78,7 @@ public class BankHolidayService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Weather> findWeatherForCityOnDate(String woeId, Date date) throws WeatherDataNotFound {
+	public List<Weather> findWeatherForCityOnDate(String woeId, Date date) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		if (StringUtils.isNotEmpty(woeId)) {
@@ -91,21 +91,20 @@ public class BankHolidayService {
 			if (weather.length > 0) {
 				return Arrays.asList(weather);
 			} else {
-				String errorMessage= String.format("Weather Data Not Found for WOEID: %s and Date: %szz", woeId, formatDate(date));
+				String errorMessage= String.format("Weather Data Not Found for WOEID: %s and Date: %s", woeId, formatDate(date));
 				log.error(errorMessage);
-				throw new WeatherDataNotFound(errorMessage);
 			}
 		}
 		return Collections.EMPTY_LIST;
 	}
 
-	public List<Holiday> retrieveTemperaturesForBankHolidayForCityBetweenDates(String city, String startDate, String endDate) throws CityNotFoundException, WeatherDataNotFound {
+	public List<Holiday> retrieveTemperaturesForBankHolidayForCityBetweenDates(String city, String startDate, String endDate) throws CityNotFoundException {
 		List<Holiday> holidays = new ArrayList<>();
 		String woeidForCity = retrieveWOEIDForCity(city);
 		if (StringUtils.isNotEmpty(woeidForCity)) {
 			List<Event> matched = retrieveBankHolidaysBetweenDates(BankHolidaysUtils.parseDate(startDate), BankHolidaysUtils.parseDate(endDate));
 			log.info("No of Matched Bank Holidays {}", matched.size());
-			for (Event event : matched) {
+				for (Event event : matched) {
 				List<Weather> weatherForCityDate = findWeatherForCityOnDate(woeidForCity, event.getDate());
 				if (!CollectionUtils.isEmpty(weatherForCityDate)) {
 					List<Double> temperatures = weatherForCityDate.stream().map(weather -> {
