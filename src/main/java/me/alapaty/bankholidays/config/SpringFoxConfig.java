@@ -19,7 +19,6 @@ public class SpringFoxConfig extends WebMvcConfigurationSupport {
                 .select()                 .apis(RequestHandlerSelectors.basePackage("me.alapaty.bankholidays"))
                 .paths(regex("/.*"))
                 .build();
-
     }
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
