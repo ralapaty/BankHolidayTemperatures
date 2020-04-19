@@ -1,28 +1,26 @@
 package me.alapaty.bankholidays.beans;
 
-import java.io.UnsupportedEncodingException;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import javax.annotation.PostConstruct;
-import javax.ws.rs.QueryParam;
-
+import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Header;
 import com.jayway.restassured.response.Headers;
-import lombok.*;
+import com.jayway.restassured.response.Response;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import me.alapaty.bankholidays.exceptions.CityNotFoundException;
 import me.alapaty.bankholidays.exceptions.WeatherDataNotFound;
 import me.alapaty.bankholidays.util.BankHolidaysUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.response.Response;
-
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.PathVariable;
+
+import javax.annotation.PostConstruct;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static me.alapaty.bankholidays.util.BankHolidaysUtils.formatDate;
 
@@ -73,7 +71,7 @@ public class BankHolidayService {
 			log.info("Retrieved WOEID: {} for city: {}", locations[0].getWoeid(), city);
 			return locations[0].getWoeid();
 		} else {
-			String errorMessage = String.format("Invalid city {}", city);
+			String errorMessage = String.format("Invalid city %s", city);
 			log.error(errorMessage);
 			throw new CityNotFoundException(errorMessage);
 		}
@@ -93,7 +91,7 @@ public class BankHolidayService {
 			if (weather.length > 0) {
 				return Arrays.asList(weather);
 			} else {
-				String errorMessage= String.format("Weather Data Not Found for WOEID: {} and Date: {}", woeId, formatDate(date));
+				String errorMessage= String.format("Weather Data Not Found for WOEID: %s and Date: %szz", woeId, formatDate(date));
 				log.error(errorMessage);
 				throw new WeatherDataNotFound(errorMessage);
 			}
@@ -123,6 +121,4 @@ public class BankHolidayService {
 		}
 		return holidays;
 	}
-
-
 }

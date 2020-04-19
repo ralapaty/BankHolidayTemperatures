@@ -10,15 +10,13 @@
 	</parent>
 	<groupId>me.alapaty.bankholidays</groupId>
 	<artifactId>bankholidays</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>bank-holidays</name>
-	<description>Demo project for Spring Boot</description>
-
+	<description>Restful API to return temperatures for a UK city on bank holidays.</description>
 	<properties>
 		<java.version>1.8</java.version>
 		 <commons-io-version>2.4</commons-io-version>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -63,14 +61,17 @@
 		    <version>2.9.0</version>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
