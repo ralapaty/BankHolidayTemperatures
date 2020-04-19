@@ -42,7 +42,6 @@ public class Main {
             holidays = bankHolidayService.retrieveTemperaturesForBankHolidayForCityBetweenDates(city, startDate, endDate);
         } catch (CityNotFoundException e) {
             errorResponse.setErrorMessage(e.getMessage());
-            errorResponse.setStatusCode(HttpStatus.BAD_REQUEST);
             return ResponseEntity.badRequest().body(errorResponse);
         }
         log.info("Bank Holiday Temperatures for city {} are {}", city, holidays);

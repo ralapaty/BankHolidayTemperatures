@@ -1,10 +1,15 @@
 package me.alapaty.bankholidays.beans;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.http.HttpStatus;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ErrorResponse {
     private String errorMessage;
-    private HttpStatus statusCode;
+    private List<String> details;
 }
