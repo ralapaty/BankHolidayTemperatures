@@ -13,6 +13,6 @@ mvn clean install
 
 # Example Application URL
 http://localhost:8080/bank-holidays/London/temps?startDate=2018-01-01&endDate=2018-06-01
-    
+        
 # Swagger Documentation
 http://localhost:8080/bank-holidays/swagger-ui.html

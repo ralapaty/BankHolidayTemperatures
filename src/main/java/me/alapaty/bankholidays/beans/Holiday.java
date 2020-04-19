@@ -1,19 +1,15 @@
 package me.alapaty.bankholidays.beans;
 
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import lombok.*;
-
-@NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-@ToString
+@NoArgsConstructor
+@Data
 public class Holiday {
-	@Getter @Setter
-	private Date date;
-	@Getter @Setter
-	private String title;
-	@Getter @Setter
-	private Double low;
-	@Getter @Setter
-	private Double high;}
+    private String date;
+    private String title;
+    private Double low;
+    private Double high;
+}

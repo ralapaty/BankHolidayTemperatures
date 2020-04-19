@@ -107,14 +107,9 @@ public class BankHolidayService {
 				for (Event event : matched) {
 				List<Weather> weatherForCityDate = findWeatherForCityOnDate(woeidForCity, event.getDate());
 				if (!CollectionUtils.isEmpty(weatherForCityDate)) {
-					List<Double> temperatures = weatherForCityDate.stream().map(weather -> {
-						return weather.getMin_temp();
-					}).collect(Collectors.toList());
-					temperatures.addAll(weatherForCityDate.stream().map(weather -> {
-						return weather.getMax_temp();
-					}).collect(Collectors.toList()));
-					DoubleSummaryStatistics stats = temperatures.stream().collect(Collectors.summarizingDouble((Double::doubleValue)));
-					holidays.add(new Holiday(event.getDate(), event.getTitle(), stats.getMin(), stats.getMax()));
+					Optional<Weather> min = weatherForCityDate.stream().min(Comparator.comparing(Weather::getMin_temp));
+					Optional<Weather> max = weatherForCityDate.stream().max(Comparator.comparing(Weather::getMax_temp));
+					holidays.add(new Holiday(formatDate(event.getDate()), event.getTitle(), min.get().getMin_temp(), max.get().getMax_temp()));
 				}
 			}
 		}
